@@ -1,2 +1,14 @@
 {{page-title "Ex1"}}
+<div class = "card">
+  <div class = "card-header bg-primary text-light">
+    Ex1 : Note d'application
+  </div>
+  <div class = "card-body">
+    <Textarea class = "form-control mb-3" rows="4" @value={{this.content}} @input={{this.update}}/>
+    <button class = "btn btn-primary" type = "button" {{on "click" this.save}}>Save</button>
+    <button class = "btn btn-primary" type = "button" {{on "click" this.clear}}>Clear</button>
+    <div class = "{{this.style}} alert alert-info"> {{this.size}} left </div>
+    <div class = "alert alert-info">{{this.info}}</div>
+  </div>
+</div>
 {{outlet}}
