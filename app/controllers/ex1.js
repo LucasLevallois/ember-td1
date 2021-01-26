@@ -3,12 +3,9 @@ import {action} from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class Ex1Controller extends Controller {
-  @tracked content='Default';
-  @tracked info = '';
-
-  messageNote = '';
-  @tracked styles = 'alert-info';
-  const;
+  @tracked content='';
+  @tracked info='';
+  @tracked styles = '';
   MAX=100;
 
   get size() {
@@ -16,31 +13,41 @@ export default class Ex1Controller extends Controller {
   }
 
 get style(){
-  if(this.content.length > 0){
-    return 'alert alert-info';
-  }else{
-    return '';
-  }
+  return this.styles;
 }
 
 @action
-update(){
-  if(this.content.length > 0){
-    this.info = 'Note modifiée';
-  }else{
-    this.info = '';
+  update() {
+    if (this.content.length > 0) {
+      this.info = 'Note modifiée';
+      if (this.content.length > 80) {
+        this.styles = 'alert alert-danger';
+      } else if (this.content.length > 50) {
+        this.styles = 'alert alert-warning';
+      } else {
+        this.styles = 'alert alert-info';
+      }
+    } else {
+      this.info = '';
+      this.styles = '';
+    }
   }
-}
+
+  @action
+  save() {
+    if (this.content.length > 0) {
+      this.info = 'Note sauvegardée';
+      this.styles = 'alert alert-success';
+    } else {
+      this.info = '';
+    }
+  }
 
 @action
-save(){
-  if(this.content.length > 0){
-    this.info = 'Note sauvegardée';
-    this.style = 'alert-success';
-    this.messageNote = this.content.toString();
-  }else{
-    this.info = '';
-  }
+clear() {
+  this.content = '';
+  this.styles = 'alert alert-info';
+  this.info = '';
 }
 
 }
